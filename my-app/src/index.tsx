@@ -77,19 +77,32 @@ class Board extends React.Component<{ squares: any, onClick: any }, { squares: a
     }
 }
 
-class Game extends React.Component<{}, { history: any, xIsNext: boolean }> {
+type gameState = {
+    history: any,
+    xIsNext: boolean,
+    moveNo: number,
+}
+
+const initialGameState = {
+    history: [{
+        squares: Array(9).fill(null),
+    }],
+    xIsNext: true,
+    moveNo: 0,
+}
+
+class Game extends React.Component<{}, gameState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            history: [{
-                squares: Array(9).fill(null),
-            }],
-            xIsNext: true,
+            history: initialGameState.history,
+            xIsNext: initialGameState.xIsNext,
+            moveNo: initialGameState.moveNo,
         }
     }
 
     handleClick(i: number) {
-        const history = this.state.history;
+        const history = this.state.history.slice(0, this.state.moveNo + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
 
@@ -103,12 +116,20 @@ class Game extends React.Component<{}, { history: any, xIsNext: boolean }> {
                 squares: squares,
             }]),
             xIsNext: !this.state.xIsNext,
+            moveNo: history.length
         })
+    }
+
+    jumpTo(step: number) {
+        this.setState({
+            moveNo: step,
+            xIsNext: (step % 2) === 0,
+        });
     }
 
     render() {
         const history = this.state.history;
-        const current = history[history.length - 1];
+        const current = history[this.state.moveNo];
         const winner = determineWinner(current.squares);
         let status;
         if (winner) {
@@ -117,6 +138,18 @@ class Game extends React.Component<{}, { history: any, xIsNext: boolean }> {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
         }
 
+        const moves = history.map((step: number, move: number) => {
+            const desc = move ?
+                'Go to move #' + move :
+                'Go to game start';
+            return (
+                // Using the index as the key is normally discoruaged, but as the move array isn't manipulated (other than appending new moves) its okay
+                <li key={move}>
+                    <button onClick={() => this.jumpTo(move)}>{desc}
+                    </button>
+                </li>
+            )
+        })
 
         return (
             <div className="game">
@@ -128,7 +161,7 @@ class Game extends React.Component<{}, { history: any, xIsNext: boolean }> {
                 </div>
                 <div className="game-info">
                     <div>{status}</div>
-                    <ol>{/* TODO */}</ol>
+                    <ol>{moves}</ol>
                 </div>
             </div>
         );
