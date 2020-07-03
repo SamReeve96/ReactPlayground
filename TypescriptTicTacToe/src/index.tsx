@@ -143,7 +143,7 @@ class Game extends React.Component<{}, gameState> {
                 'Go to move #' + move :
                 'Go to game start';
             return (
-                // Using the index as the key is normally discoruaged, but as the move array isn't manipulated (other than appending new moves) its okay
+                // Using the index as the key is normally discouraged, but as the move array isn't manipulated (other than appending new moves) its okay
                 <li key={move}>
                     <button onClick={() => this.jumpTo(move)}>{desc}
                     </button>
