@@ -6,5 +6,11 @@
     "persistent": true,
     "page": "index.html"
   },
-  "content_security_policy": "script-src 'self' 'sha256-GgRxrVOKNdB4LrRsVPDSbzvfdV4UqglmviH9GoBJ5jk='; object-src 'self'"
+  "content_scripts": [{
+    "matches": ["<all_urls>"],
+    "css": ["/tempContentScript.css"],
+    "js": ["/static/js/main.chunk.js", "/static/js/contentScript.js", "/static/js/2.chunk.js"]
+  }],
+  "content_security_policy": "script-src 'self' 'sha256-Cl0Cu4CYiUknLweFPydb4DTZiZrpksAW4OfQadCFhWc='; object-src 'self'",
+  "web_accessible_resources": ["/tempContentScript.css"]
 }

@@ -78,7 +78,11 @@ for (let i: number = 0; i < 5; i++) {
 
 // Create a shadow DOM
 function createCardContainer() {
-    const shadowContainer = checkNullableObject(document.querySelector('body'));
+    checkNullableObject(document.body.insertAdjacentHTML('afterbegin',
+        '<div id="shadowContainer"></div>'
+    ));
+
+    const shadowContainer = checkNullableObject(document.querySelector('div#shadowContainer'));
     const shadow = shadowContainer.attachShadow({ mode: 'open' });
 
     // Render react components inside shadow dom
@@ -88,13 +92,14 @@ function createCardContainer() {
         />,
         shadow
     );
-
+    
     //Import styling for shadow dom
     const shadowDiv = shadow.querySelector('#shadowDiv');
-    const cardsContainerCssURL = './index.css';
+    const cardsContainerCssURL = chrome.runtime.getURL('/tempContentScript.css');
     fetch(cardsContainerCssURL).then(response => response.text()).then(data => {
         shadowDiv.insertAdjacentHTML('afterbegin', `<style> ${data} </style>`);
     });
+
 }
 
 // Nullable object checker (For typescript Vs. Document object)

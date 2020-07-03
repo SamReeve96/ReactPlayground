@@ -1,20 +1,16 @@
-div {
+div#shadowContainer {
   background-color: blue;
   color: white;
 }
 
-h1 {
+div#shadowContainer h1 {
   color: yellow;
 }
 
-* {
-  color: blue;
-}
-
-p {
+div#shadowContainer p {
   color: red;
 }
 
-.annotationCard {
+div#shadowContainer .annotationCard {
   background-color: white;
 }
