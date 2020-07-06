@@ -1,3 +1,4 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -36,7 +37,7 @@ function CardsContainer(props: any) {
             >
                 Create new annotation
             </button>
-            <ol>
+            <ol className='cardsContainer'>
                 {cards}
             </ol>
         </div>
@@ -95,7 +96,7 @@ function createCardContainer() {
     
     //Import styling for shadow dom
     const shadowDiv = shadow.querySelector('#shadowDiv');
-    const cardsContainerCssURL = chrome.runtime.getURL('/tempContentScript.css');
+    const cardsContainerCssURL = chrome.runtime.getURL('/content/cardsContainer.css');
     fetch(cardsContainerCssURL).then(response => response.text()).then(data => {
         shadowDiv.insertAdjacentHTML('afterbegin', `<style> ${data} </style>`);
     });
