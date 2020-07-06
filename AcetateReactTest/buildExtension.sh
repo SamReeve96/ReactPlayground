@@ -10,6 +10,9 @@ mkdir extensionBuild
 # Copy Extension manifest
 cp ./extensionSrc/manifest.json ./extensionBuild/
 
+# Copy assets
+cp ./extensionSrc/assets ./extensionBuild/assets
+
 ## Content script
 echo 'Building content script react app'
 # run create react app to build the content script
