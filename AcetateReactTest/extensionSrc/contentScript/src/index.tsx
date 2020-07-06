@@ -96,7 +96,7 @@ function createCardContainer() {
     
     //Import styling for shadow dom
     const shadowDiv = shadow.querySelector('#shadowDiv');
-    const cardsContainerCssURL = chrome.runtime.getURL('/content/cardsContainer.css');
+    const cardsContainerCssURL = chrome.runtime.getURL('/contentScript/cardsContainer.css');
     fetch(cardsContainerCssURL).then(response => response.text()).then(data => {
         shadowDiv.insertAdjacentHTML('afterbegin', `<style> ${data} </style>`);
     });
