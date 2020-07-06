@@ -11,7 +11,7 @@ mkdir extensionBuild
 cp ./extensionSrc/manifest.json ./extensionBuild/
 
 # Copy assets
-cp ./extensionSrc/assets ./extensionBuild/assets
+cp ./extensionSrc/assets/ ./extensionBuild/assets/
 
 ## Content script
 echo 'Building content script react app'
@@ -31,11 +31,14 @@ sass --no-source-map ./Sass/content.scss ../../extensionBuild/content/content.cs
 # Popup
 sass --no-source-map ../popup/popup.scss ../../extensionBuild/popup/popup.css
 
-
 ## Compile typescript
 echo 'Compiling typescript'
+
+# Backgroud
 cd ../background/
 tsc
+
+# Popup
 cd ../popup/
 tsc
 
